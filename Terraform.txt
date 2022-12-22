@@ -1,0 +1,173 @@
+terraform file extinsion is .tf
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ 
+Syntax 
+
+output "name_of_output" {value="value to be printed" }
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Hello World Script
+
+output "first_script"{
+		
+	value= "Hello World"
+}
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Variable Output script
+
+
+variable "local" {
+	name= "Naveen"
+	total= 25.5
+	mark1= 15.5
+	mark2 = 10
+}
+output "using_string_var" {
+	value = local.name
+}
+output "number_output" {
+	value = local.mark1
+}
+output "number_output"{
+	value= local.mark2
+}
+output "decimal_output"
+	value = local.total
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+.tfvar file 
+To check the Maximum registred location
+
+main.tf
+
+local{
+stud_reg_list={
+	resource_group_name = var.resourse_group_name
+	location = var.location
+	tags = var.tags
+}
+}
+output "output_resource"{
+	value = local.resource
+}
+output "max_reged_location"{
+	value= local.location
+output "all_location"{
+	value = var.allowed_location
+}
+output "tag"{
+	value = local.max_reged
+}
+
+
+
+.tfvar file
+
+resource_group_name = "reg-stud-list"
+
+#set the location value
+
+location = "IND"
+
+allowed_location = [
+	"IND"
+	"USA"
+	"CND"
+	"AUS"
+]
+tags = "max_reged_from"
+}
+output
+
+output_resource reg-stud-list
+
+max_reged_location IND
+
+allowed_location 
+	IND
+	USA
+	CND
+	AUS
+
+tag max_reged_from
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Provider Github
+
+main.tf
+
+resource "github_repository" "git_tf_demo" {
+  name        = "terraform_demo"
+  description = "Initial Commit"
+
+  visibility = "private"
+
+}
+
+provider.tf
+
+terraform {
+  required_providers {
+    github = {
+      source  = "integrations/github"
+      version = "~> 5.0"
+    }
+  }
+}
+
+# Configure the GitHub Provider
+
+provider "github" {
+token = "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"
+}
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+provider "azuredevops" {
+ 
+	 version = ">= 0.0.1"
+	 org_service_url = https://dev.azure.com/naveennanda-b99/
+ 	 personal_access_token = "odix4rp5nzy3wmjpn3xdlvbjypib3etgbjyxhtlmb5s5mpf37cka"
+}
+
+resource "azuredevops_project" "demoproj" {
+  	project_name       = "terraform_demo_project"
+  	description        = "Demo Project"
+  	visibility         = "private"
+  	version_control    = "Git"
+  	work_item_template = "Agile"
+  
+  features = {
+      "boards" = "enabled"
+      "repositories" = "enabled"
+      "pipelines" = "enabled"
+      "testplans" = "enabled"
+      "artifacts" = "enabled"
+  }
+}
+
+resource "azuredevops_git_repository" "new_repo"{
+
+	project_id =  azuredevops_project.demoproj.id
+	name = "azure_demo_repo"
+
+initializtion{
+
+	init_type = "clean"	
+}
+}
+
+
